@@ -142,7 +142,18 @@ var __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_RESULT__ = function (re
         return this._GLMap
     }
 
+    GLMapCoordSys.prototype.fixLat=function(lat) {
+        if(lat>=90){
+            return 89.99999999999999;
+        }
+        if(lat<=-90){
+            return -89.99999999999999;
+        }
+        return  lat;
+    }
+
     GLMapCoordSys.prototype.dataToPoint = function (data) {
+        data[1]= this.fixLat(data[1]);
         var px = this._GLMap.project(data)
 
         var mapOffset = this._mapOffset
